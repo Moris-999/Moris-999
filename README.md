@@ -19,18 +19,8 @@ Welcome to my GitHub profile! I'm a passionate developer with a deep love for co
 ### Programming Languages:
 - Python, R, SQL
 
-### Tools & Frameworks:
-- Scikit-learn, TensorFlow, PyTorch, Pandas, ggplot2
-
-
 ### Data Science:
 - Machine Learning, Data Visualization, Predictive Analytics
-
-### Other Skills:
-- Software Development, Dashboard Creation, Data Cleaning
-
----
-
 
 ## 📫 Connect with Me
 
