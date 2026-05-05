@@ -22,11 +22,8 @@ Welcome to my GitHub profile! I'm a passionate developer with a deep love for co
 ### Data Science:
 - Machine Learning, Data Visualization, Predictive Analytics
 
-## 📫 Connect with Me
 
-- **LinkedIn**: [Moris Muchuki Maina](https://www.linkedin.com/in/moris-maina)
 
----
 
 
 
