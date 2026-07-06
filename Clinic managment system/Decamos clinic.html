@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Prototype Interface</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: flex; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col h-screen">
+
+    <!-- Prototype Mode Switching Navbar -->
+    <header class="bg-slate-900 text-white px-6 py-3 flex flex-col sm:flex-row justify-between items-center border-b border-slate-700">
+        <div class="flex items-center space-x-3 mb-3 sm:mb-0">
+            <span class="text-xl">🏥</span>
+            <h1 class="text-lg font-bold tracking-tight">MedFlow System Prototype</h1>
+        </div>
+        <!-- Role Swapper Navigation -->
+        <nav class="flex space-x-2 bg-slate-800 p-1 rounded-xl border border-slate-700">
+            <button onclick="switchTab('reception')" id="btn-reception" class="nav-btn px-4 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 text-white transition-all">
+                1. Receptionist
+            </button>
+            <button onclick="switchTab('doctor')" id="btn-doctor" class="nav-btn px-4 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">
+                2. Doctor Room
+            </button>
+            <button onclick="switchTab('pharmacy')" id="btn-pharmacy" class="nav-btn px-4 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:text-white transition-all">
+                3. Pharmacy & Retail
+            </button>
+        </nav>
+    </header>
+
+    <!-- MODULE 1: RECEPTIONIST DESK -->
+    <div id="tab-reception" class="tab-content active flex-1 p-6 max-w-[1200px] mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-6 overflow-y-auto">
+        <!-- New Patient Admission Form -->
+        <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col space-y-4">
+            <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">Patient Intake Registration</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">First Name</label>
+                    <input type="text" value="John" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Last Name</label>
+                    <input type="text" value="Doe" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Date of Birth</label>
+                    <input type="date" value="1992-04-12" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-500 mb-1">Contact Number</label>
+                    <input type="text" value="+1 (555) 019-2831" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">Known Drug Allergies</label>
+                <input type="text" value="Penicillin, Sulfa Drugs" class="w-full rounded-lg border border-rose-200 bg-rose-50/30 px-3 py-2 text-sm text-rose-700 font-medium focus:outline-none">
+            </div>
+            <div class="pt-4 border-t border-slate-100">
+                <button type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-2.5 rounded-xl transition-colors shadow-sm">
+                    Save Patient Record
+                </button>
+            </div>
+        </div>
+
+        <!-- Check-In & Attending Doctor Assignment -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 h-fit space-y-4">
+            <h2 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">Create Active Visit</h2>
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">Assign Attending Doctor</label>
+                <select class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                    <option>Dr. Alex Smith (General Medicine)</option>
+                    <option>Dr. Sarah Jenkins (Pediatrics)</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-slate-500 mb-1">Priority Level</label>
+                <div class="flex space-x-2 mt-1">
+                    <label class="flex-1 text-center py-2 border border-slate-200 rounded-lg text-xs font-medium cursor-pointer bg-slate-50">Routine</label>
+                    <label class="flex-1 text-center py-2 border border-amber-300 bg-amber-50 text-amber-800 rounded-lg text-xs font-bold cursor-pointer">Urgent</label>
+                </div>
+            </div>
+            <button onclick="switchTab('doctor')" type="button" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm py-2.5 rounded-xl transition-colors">
+                Send to Doctor Queue →
+            </button>
+        </div>
+    </div>
+
+    <!-- MODULE 2: DOCTOR CLINICAL WORKSPACE -->
+    <div id="tab-doctor" class="tab-content flex-1 p-6 max-w-[1600px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
+        <!-- Live Patient Queue Stack -->
+        <section class="lg:col-span-3 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-slate-100 bg-slate-50/70">
+                <h3 class="font-bold text-sm text-slate-900 flex justify-between items-center">
+                    <span>Your Waiting Queue</span>
+                    <span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-semibold">1 Active</span>
+                </h3>
+            </div>
+            <div class="divide-y divide-slate-100 overflow-y-auto flex-1">
+                <div class="p-4 bg-blue-50/60 border-l-4 border-blue-600 block">
+                    <span class="font-semibold text-blue-900 text-sm block">John Doe</span>
+                    <p class="text-xs text-slate-500 mt-0.5">ID: PT-8821 • Urgent Route</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic EMR Form Panel -->
+        <form class="lg:col-span-9 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+            <div class="p-5 border-b border-slate-100 bg-slate-50/40 flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">Consultation File: John Doe</h2>
+                    <p class="text-xs text-rose-600 font-semibold mt-0.5">⚠️ Allergies: Penicillin</p>
+                </div>
+                <span class="text-xs font-mono bg-slate-200 px-2 py-1 rounded text-slate-600">ID: VST-9412</span>
+            </div>
+            <div class="p-6 space-y-5 overflow-y-auto flex-1">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1">Vitals: BP</label>
+                        <input type="text" value="135/85" class="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1">Vitals: Temp (°C)</label>
+                        <input type="text" value="38.2" class="w-full rounded-lg border border-slate-200 px-3 py-1.5 text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1">Clinical Assessment</label>
+                        <textarea rows="3" class="w-full rounded-lg border border-slate-200 p-3 text-sm resize-none">Patient presents with acute respiratory symptoms, heavy chest congestion, and elevated temperature.</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-500 mb-1">Primary Diagnosis</label>
+                        <textarea rows="3" class="w-full rounded-lg border border-slate-200 p-3 text-sm resize-none">Acute Bronchitis secondary to localized bacterial infection.</textarea>
+                    </div>
+                </div>
+                <!-- E-Prescribing Row -->
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Prescribe Medication</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <select class="rounded-lg border border-slate-200 px-3 py-2 text-sm bg-white">
+                            <option>Azithromycin 500mg (Penicillin Alternative)</option>
+                            <option>Paracetamol 500mg (Analgesic)</option>
+                        </select>
+                        <input type="text" value="Take 1 tablet daily for 3 days" class="rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                        <input type="number" value="3" class="rounded-lg border border-slate-200 px-3 py-2 text-sm">
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+                <button onclick="switchTab('pharmacy')" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 py-2 rounded-xl transition-colors shadow-sm">
+                    Commit to Pharmacy & Discharge
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- MODULE 3: PHARMACY RETAIL & BILLING INVOICE -->
+    <div id="tab-pharmacy" class="tab-content flex-1 p-6 max-w-[1000px] mx-auto w-full flex flex-col space-y-6 overflow-y-auto">
+        <!-- Pharmacy Dispensing Panel -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">Point of Sale & Dispensing Center</h2>
+                    <p class="text-xs text-slate-500">Active Order Link: <span class="font-medium text-slate-800">John Doe (VST-9412)</span></p>
+                </div>
+                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold">Order Transmitted</span>
+            </div>
+
+            <!-- Retail Invoice Pricing Matrix -->
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-200 text-xs font-semibold uppercase text-slate-400 tracking-wider">
+                        <th class="py-2">Item / Service Description</th>
+                        <th class="py-2 text-center">Qty</th>
+                        <th class="py-2 text-right">Unit cost</th>
+                        <th class="py-2 text-right">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm divide-y divide-slate-100 text-slate-700">
+                    <tr>
+                        <td class="py-3 font-medium text-slate-900">General Consultation Fee (Dr. Alex Smith)</td>
+                        <td class="py-3 text-center">1</td>
+                        <td class="py-3 text-right">$30.00</td>
+                        <td class="py-3 text-right font-medium">$30.00</td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 font-medium text-slate-900">Azithromycin 500mg Oral Tablet</td>
+                        <td class="py-3 text-center">3</td>
+                        <td class="py-3 text-right">$4.00</td>
+                        <td class="py-3 text-right font-medium">$12.00</td>
+                    </tr>
+                    <!-- Financial Summary Tally -->
+                    <tr class="bg-slate-50/50 font-semibold text-slate-900">
+                        <td colspan="3" class="py-3 text-right pr-4">Total Balance Due:</td>
+                        <td class="py-3 text-right text-emerald-700 font-bold">$42.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Checkout Action Form Block -->
+            <div class="mt-6 pt-5 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-2 w-full sm:w-auto">
+                    <label class="text-xs font-medium text-slate-500 whitespace-nowrap">Payment Method:</label>
+                    <select class="rounded-lg border border-slate-200 px-3 py-1.5 text-sm bg-white w-full">
+                        <option>Cash Transaction</option>
+                        <option>Credit/Debit Card</option>
+                        <option>Direct Insurance Claim</option>
+                    </select>
+                </div>
+                <button onclick="alert('Transaction Processed! Inventory updated successfully.')" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition-colors shadow-sm">
+                    Collect Payment & Deduct Inventory Stock
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Controller Engine Script -->
+    <script>
+        function switchTab(tabId) {
+            // Drop visibility of all panel blocks
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            // Remove selection highlight from navbar control buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            // Activate chosen frame asset
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            // Reapply styling to dynamic activation button target
+            const currentBtn = document.getElementById(`btn-${tabId}`);
+            currentBtn.classList.remove('text-slate-400');
+            currentBtn.classList.add('bg-blue-600', 'text-white');
+        }
+    </script>
+</body>
+</html>
